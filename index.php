@@ -81,7 +81,10 @@ if ($_GET) {
 
     </header>
     <main class="container">
-        <h2 class="text-center">Tableau d'élèves</h2>
+        <div class="mb-3">
+            <h2 class="text-center">Tableau d'élèves</h2>
+            <!-- <a href="./Views/createStudent.php" class="btn btn-success">Ajouter un étudiant</a href="./Views/createStudent.php"> -->
+        </div>
         <table class="table">
             <thead>
                 <th scope="col">ID_etudiant</th>

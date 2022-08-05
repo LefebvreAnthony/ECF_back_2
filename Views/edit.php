@@ -3,7 +3,7 @@
 require_once '../Controllers/ElevesCrud.php';
 
 $request = new EleveCrud;
-$allEleves = $request->getOne($_GET['id']);
+$eleve = $request->getOne($_GET['id']);
 
 if ($_POST) {
     var_dump($_POST);
@@ -39,7 +39,7 @@ if ($_POST) {
         <h1 class=" text-center">Editer un élève</h1>
     </header>
     <main class="container">
-        <h2 class="text-center">Elève <?= $allEleves[0]['prenom'] . " " . $allEleves[0]['nom'] ?></h2>
+        <h2 class="text-center">Elève <?= $eleve[0]['prenom'] . " " . $eleve[0]['nom'] ?></h2>
         <table class="table">
             <form method="POST">
                 <thead>
@@ -51,18 +51,18 @@ if ($_POST) {
                 </thead>
                 <tbody>
                     <tr>
-                        <td><?= $allEleves[0]['id_etudiant'] ?></td>
+                        <td><?= $eleve[0]['id_etudiant'] ?></td>
                         <td>
-                            <input type="text" name="prenom" id="prenom" value="<?= $allEleves[0]['prenom'] ?>">
+                            <input type="text" name="prenom" id="prenom" value="<?= $eleve[0]['prenom'] ?>">
                         </td>
                         <td>
-                            <input type="text" name="nom" id="nom" value="<?= $allEleves[0]['nom'] ?>">
+                            <input type="text" name="nom" id="nom" value="<?= $eleve[0]['nom'] ?>">
                         </td>
                         <td>
                             <button type="submit" class="btn btn-primary">Modifier</button>
                         </td>
                         <td>
-                            <a class="btn btn-danger" href="delete.php?id=<?= $allEleves[0]['id_etudiant'] ?>">supprimer</a>
+                            <a class="btn btn-danger" href="delete.php?id=<?= $eleve[0]['id_etudiant'] ?>">supprimer</a>
                         </td>
 
                     </tr>
@@ -72,15 +72,15 @@ if ($_POST) {
         <h2 class="text-center mt-5">Notes & Matières</h2>
         <table class="table">
             <thead>
-                <td scope="col">Matières</td>
-                <td scope="col"><label for="note">Notes</label></td>
+                <th scope="col">Matières</th>
+                <th scope="col"><label for="note">Notes</label></th>
                 <th scope="col">Modifier</th>
                 <th scope="col">Supprimer</th>
             </thead>
             <tbody>
 
                 <?php
-                foreach ($allEleves as $info) {
+                foreach ($eleve as $info) {
                 ?>
                     <form method="POST">
                         <input class="invisible" type="number" name="id" id="id" value="<?= $info['id'] ?>">
@@ -102,6 +102,7 @@ if ($_POST) {
                 ?>
             </tbody>
         </table>
+        <h2 class="text-center mt-5">Moyenne générale : <?= $eleve[0]['moyenne']  ?>/20</h2>
     </main>
 </body>
 

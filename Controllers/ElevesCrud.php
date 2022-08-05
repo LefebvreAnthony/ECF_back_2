@@ -1,6 +1,5 @@
 <?php
 
-require_once 'CrudFunction.php';
 
 class EleveCrud
 {
@@ -48,6 +47,41 @@ class EleveCrud
         return $pages;
     }
 
+    // CREATE ETUDIANT METHOD
+
+    // public function createOne(string $nom, string $prenom)
+    // {
+    //     $nom = strip_tags($nom);
+    //     $prenom = strip_tags($prenom);
+    //     $nom = ucfirst($nom);
+    //     $prenom = ucfirst($prenom);
+
+    //     // $request = "INSERT INTO `etudiants` (nom, prenom) VALUES (:nom, :prenom);";
+
+    //     // $connexion = $this->getConnexion();
+    //     // $query = $connexion->prepare($request);
+    //     // $query->bindParam(':nom', $nom, pdo::PARAM_STR);
+    //     // $query->bindParam(':prenom', $prenom, pdo::PARAM_STR);
+
+    //     // $query->execute();
+
+    //     // FOR GO TO PAGE
+    //     $request = "SELECT id_etudiant FROM `etudiants` ORDER BY `etudiants`.id_etudiant DESC;";
+
+    //     $connexion = $this->getConnexion();
+    //     $query = $connexion->prepare($request);
+
+    //     $query->execute();
+
+    //     $id = $query->fetch(PDO::FETCH_ASSOC);
+    //     var_dump($id);
+    //     $id = (int) $id['id_etudiant'];
+    //     var_dump($id);
+    //     $connexion = $this->closeConnexion();
+
+    //     return header('Location: ../Views/edit.php?id=' . $id);
+    // }
+
     // RECHERCHER TOUT LES ETUDIANTS METHOD
     public function getAll(int $currentPage)
     {
@@ -78,7 +112,7 @@ class EleveCrud
     {
         $id = strip_tags($id);
 
-        $request = "SELECT etudiants.id_etudiant, prenom, nom, note, matiere,`examens`.id
+        $request = "SELECT etudiants.id_etudiant, prenom, nom, note, AVG(note) AS moyenne, matiere,`examens`.id
         FROM `etudiants` 
         INNER JOIN `examens` 
         ON `etudiants`.id_etudiant=`examens`.id_etudiant 
