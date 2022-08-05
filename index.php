@@ -14,8 +14,12 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
     $currentPage = 1;
     $allEleves = $request->getAll($currentPage);
 }
-$test = $request->updateOne(6);
-var_dump($test);
+
+if ($_GET) {
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $request->searchOne($_GET['search']);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,12 +30,55 @@ var_dump($test);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Document</title>
+    <title>Accueil</title>
 </head>
 
 <body>
     <header class="mb-5">
         <h1 class=" text-center">Accueil gestion d'élèves</h1>
+        <form method="GET" class="container">
+            <div class="input-group my-5 px-5">
+                <input class="form-control" type="search" name="search" id="search" placeholder="Rechercher un étudiant">
+                <div class="input-group-append">
+                    <button class="btn btn-primary input-group-text">Rechercher</button>
+                </div>
+            </div>
+        </form>
+        <?php
+        if (!empty($_GET['search'])) {
+
+        ?>
+            <div class="container mb-5">
+                <h2 class="text-center">Résultats recherche :</h2>
+                <table class="table">
+                    <thead>
+                        <th scope="col">ID_etudiant</th>
+                        <th scope="col">Prenom</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Modifier</th>
+                        <th scope="col">Supprimer</th>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($search as $info) {
+                        ?>
+                            <tr>
+                                <td><?= $info['id_etudiant'] ?></td>
+                                <td><?= $info['prenom'] ?></td>
+                                <td><?= $info['nom'] ?></td>
+                                <td><a class="btn btn-primary" href="./Views/edit.php?id=<?= $info['id_etudiant'] ?>">modifier</a></td>
+                                <td><a class="btn btn-danger" href="./Views/delete.php?id=<?= $info['id_etudiant'] ?>">supprimer</a></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php
+        }
+        ?>
+
     </header>
     <main class="container">
         <h2 class="text-center">Tableau d'élèves</h2>
