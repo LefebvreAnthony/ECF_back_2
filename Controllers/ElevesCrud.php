@@ -3,7 +3,7 @@
 
 class EleveCrud
 {
-    private $dbName = 'root';
+    private $dbName = '';
     private $password = '';
     private $db = "";
 
@@ -12,7 +12,7 @@ class EleveCrud
     private function getConnexion()
     {
         try {
-            $this->db = new PDO('mysql:host=localhost;dbname=ecf2_backend', $this->dbName, $this->password);
+            $this->db = new PDO('mysql:host=??;dbname=??', $this->dbName, $this->password);
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             return $this->db;
